@@ -19,13 +19,17 @@ optBtnFour.addEventListener("click", () => load(optBtnFour.innerText));
 
 // Load in the items for the name selected
 async function load(name) {
-  const { data, error } = await supabase
+  const { data: userData, error: userSelectError } = await supabase
     .from("WishlistItems")
     .select("*")
     .eq("owner_name", name);
-  console.log("error:", error);
-  list.removeAttribute("hidden");
-  item.innerText = data[0].item_name;
-  userItems = data;
-  console.log("Current User's Items: ", userItems);
+  console.log("error:", userSelectError);
+  localStorage.setItem("user", userData);
+  const { data: listsData, error: listsError } = await supabase
+    .from("WishlistItems")
+    .select("*")
+    .neq("owner_name", name);
+  localStorage.setItem("data", listsData);
+  console.log("error:", listsError);
+  window.location.href = "wishlist_select.html";
 }

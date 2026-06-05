@@ -4,6 +4,8 @@ body{
     background-image: linear-gradient(blue, purple);
     height: 100vh;
     overflow: hidden;
+}
+.screenOne{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,11 +47,45 @@ h1{
     margin: 4%;
     width: 92%;
 }
-.button-style{
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 2%;
+.select {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
 }
-.select{
-    width: 100%
+.button-style {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 160px;
+    height: 100px;
+
+    background: linear-gradient(145deg, #6c63ff, #4b42d8);
+    color: white;
+
+    text-decoration: none; /* Removes underline */
+    font-size: 1.1rem;
+    font-weight: bold;
+
+    border-radius: 12px;
+    border: none;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+.button-style:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(145deg, #7b73ff, #5b52e8);
+    border: 2px solid white;
+}
+.button-style:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
