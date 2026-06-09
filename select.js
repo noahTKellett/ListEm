@@ -7,15 +7,23 @@ const supabase = createClient(
 
 const d = document;
 
-const optBtnOne = d.getElementById("optBtnOne");
-const optBtnTwo = d.getElementById("optBtnTwo");
-const optBtnThree = d.getElementById("optBtnThree");
-const optBtnFour = d.getElementById("optBtnFour");
+const { data, error } = await supabase
+  .from("WishlistItems")
+  .select("owner_name");
+console.log("Data: ", data);
+console.log("Error: ", error);
+const uniqueNames = [...new Set(data.map((item) => item.owner_name))];
 
-optBtnOne.addEventListener("click", () => load(optBtnOne.innerText));
-optBtnTwo.addEventListener("click", () => load(optBtnTwo.innerText));
-optBtnThree.addEventListener("click", () => load(optBtnThree.innerText));
-optBtnFour.addEventListener("click", () => load(optBtnFour.innerText));
+const userList = d.getElementById("userSelect");
+
+uniqueNames.forEach((name, index) => {
+  const btn = d.createElement("button");
+  btn.classList.add("button-style");
+  btn.id = `optBtn${index}`;
+  btn.textContent = name;
+  btn.addEventListener("click", () => load(name));
+  userList.appendChild(btn);
+});
 
 // Load in the items for the name selected
 async function load(name) {
@@ -24,12 +32,13 @@ async function load(name) {
     .select("*")
     .eq("owner_name", name);
   console.log("error:", userSelectError);
-  localStorage.setItem("user", userData);
+  localStorage.setItem("name", name);
+  localStorage.setItem("user", JSON.stringify(userData));
   const { data: listsData, error: listsError } = await supabase
     .from("WishlistItems")
     .select("*")
     .neq("owner_name", name);
-  localStorage.setItem("data", listsData);
+  localStorage.setItem("data", JSON.stringify(listsData));
   console.log("error:", listsError);
   window.location.href = "wishlist_select.html";
 }
