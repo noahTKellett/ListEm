@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title id="title">ListEm - My Wishlist</title>
+
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="title" id="userWishlistTitle">My Wishlist</div>
+        <br/>
+        <ul class="list" id="myList"></ul>
+        <br/>
+        <button id="addItemBtn">Add Item</button>
+        <dialog id="deletePopup" class="popup">
+            <div>
+                <form method="dialog">
+                    <h2 id="deleteHeading">Are you sure you wish to </h2>
+                    <div id="buttonContainer">
+                        <button id="yesOption">Yes, delete it</button>
+                        <button id="noOption">No, keep it</button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
+        <dialog id="addPopup" class="popup">
+            <div>
+                <form method="dialog">
+                    <h2>New Item Information</h2>
+                    <div id="addPopupImg">
+                        <label id="imgLbl">Image URL</label>
+                        <br/>
+                        <input type="text" id="imgFld"></input>
+                    </div>
+                    <br/>
+                    <div id="addPopupName">
+                        <label id="nameLbl">Item Name</label>
+                        <br/>
+                        <input type="text" id="nameFld"></input>
+                    </div>
+                    <br/>
+                    <div id="addPopupDescr">
+                        <label id="descrLbl">Description</label>
+                        <br/>
+                        <input type="text" id="descrFld"></input>
+                    </div>
+                    <br/>
+                    <div id="addPopupPrice">
+                        <label id="priceLbl">Price (CAD)</label>
+                        <br/>
+                        <input type="text" inputmode="decimal" pattern="[0-9]*([\.,][0-9]{2})?"
+                            oninput="this.value = this.value.replace(/[^0-9.,]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                            placeholder="0.00" id="priceFld"></input>
+                    </div>
+                </form>
+                <br/>
+                <button id="addBtn">Add</button>
+            </div>
+        </dialog>
+        <script type="module" src="my_wishlist.js"></script>
+    </body>
+</html>

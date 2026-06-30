@@ -1,30 +1,30 @@
+import { allUsers } from "./db_utils.js";
+
 const d = document;
 
-let name = localStorage.getItem("name");
-let userItems = JSON.parse(localStorage.getItem("user"));
-console.log("User: ", userItems);
-const btnOne = d.getElementById("optBtnOne");
-btnOne.innerText = userItems[0].item_name;
-
+let username = localStorage.getItem("username");
+console.log("Name: ", username);
+let names = JSON.parse(localStorage.getItem("names"));
+console.log("Names: ", names);
 let data = JSON.parse(localStorage.getItem("data"));
 console.log("Data: ", data);
 
-let otherNames = [];
-
-for (let x = 0; x < data.length; x++) otherNames.push(data[x].owner_name);
-
-const uniqueNames = [...new Set(otherNames)];
-console.log("Unique Names: ", uniqueNames);
-
 const userList = d.getElementById("wishlistSelect");
+names.forEach((name, index) => {
+  if (name.user != username) {
+    const btn = d.createElement("button");
+    btn.classList.add("button-style");
+    btn.id = `optBtn${index}`;
+    btn.textContent = name.user;
+    btn.addEventListener("click", () => {
+      localStorage.setItem("name", name.user);
+      window.location.href = "wishlist_view.html";
+    });
+    userList.appendChild(btn);
+  }
+});
 
-uniqueNames.forEach((name, index) => {
-  const btn = d.createElement("button");
-  btn.classList.add("button-style");
-  btn.id = `optBtn${index}`;
-  btn.textContent = name;
-  btn.addEventListener("click", () => {
-    window.location.href = "wishlist_view.html";
-  });
-  userList.appendChild(btn);
+const myListBtn = d.getElementById("myWishlistBtn");
+myListBtn.addEventListener("click", () => {
+  window.location.href = "my_wishlist.html";
 });
