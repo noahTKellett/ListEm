@@ -4,10 +4,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ListEm</title>
-
+        <link rel="icon" type="image/x-icon" href="/img/L_icon.png">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <label class="lightMode">
+            <input type="checkbox" id="mode">
+            <span class="toggle"></span>
+        </label>
         <div class="screenOne">
             <div class="panel" id="panel">
                 <h1>
@@ -15,9 +19,20 @@
                 </h1>
                 <label class="txtOne" id="txtOne">Password:</label>
                 <br/>
-                <input type="text" id="passwordFld" name="passwordFld">
+                <input type="text" id="passwordFld" name="passwordFld"
+                    style="
+                        width: 80%;
+                        max-width: 500px;
+                        padding: 15px 20px;
+                        font-size: 1.1rem;
+                        border: 2px solid rgba(255,255,255,.15);
+                        border-radius: 12px;
+                        background: rgb(245,245,245);
+                        outline: none;
+                        transition: .25s;
+                    ">
                 <br/><br/><br/>
-                <button type="button" id="submitBtn" name="submitBtn">Submit</button>
+                <button type="button" class="smallBtn" id="submitBtn">Submit</button>
             </div>
         </div>
         <script type="module" src="main.js"></script>

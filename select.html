@@ -4,16 +4,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ListEm</title>
-
+        <link rel="icon" type="image/x-icon" href="/img/L_icon.png">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        
+        <label class="lightMode">
+            <input type="checkbox" id="mode">
+            <span class="toggle"></span>
+        </label>
+        </select>
         <div class="title">Who Are You?</div>
-        <div class="select" id="userSelect">
-            <!-- users get dynamically added based on database entries -->
+        <div style="display: flex; justify-content: center;">
+            <div class="select" id="userSelect"> <!-- users get dynamically added based on database (User table) entries --> </div>
         </div>
-
         <div class="list" id="list" hidden="true">
             <div class="title" id="item">None</div>
         </div>

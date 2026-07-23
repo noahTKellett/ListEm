@@ -5,6 +5,12 @@ const supabase = createClient(
   "sb_publishable_JB8n7KRQtk_0C6ImNBA5uQ_Qs6YZV1X",
 );
 
+export async function checkPassword(attempt) {
+  const { data, error } = await supabase.from("Passwords").select("*");
+  if (attempt === data[0].password) return true;
+  else return false;
+}
+
 export async function allUsers() {
   const { data, error } = await supabase.from("Users").select("*");
   console.log("data:", data);

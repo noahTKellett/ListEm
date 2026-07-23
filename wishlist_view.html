@@ -4,13 +4,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title id="title"></title>
-
+        <link rel="icon" type="image/x-icon" href="/img/L_icon.png">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <label class="lightMode">
+            <input type="checkbox" id="mode">
+            <span class="toggle"></span>
+        </label>
         <div class="title" id="userWishlistTitle"></div>
         <br/>
         <ul class="list" id="itemList"></ul>
+        <br/>
+        <button id="backBtn" style="margin-left: 2.5%;">Back</button>
         <script type="module" src="wishlist_view.js"></script>
     </body>
 </html>

@@ -4,22 +4,31 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title id="title">ListEm - My Wishlist</title>
-
+        <link rel="icon" type="image/x-icon" href="/img/L_icon.png">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <label class="lightMode">
+            <input type="checkbox" id="mode">
+            <span class="toggle"></span>
+        </label>
         <div class="title" id="userWishlistTitle">My Wishlist</div>
         <br/>
         <ul class="list" id="myList"></ul>
         <br/>
+        <button id="backBtn" style="margin-left: 2.5%;">Back</button>
         <button id="addItemBtn">Add Item</button>
         <dialog id="deletePopup" class="popup">
             <div>
                 <form method="dialog">
-                    <h2 id="deleteHeading">Are you sure you wish to </h2>
-                    <div id="buttonContainer">
-                        <button id="yesOption">Yes, delete it</button>
-                        <button id="noOption">No, keep it</button>
+                    <div style="display: flex; justify-content: center;">
+                        <img src="img/deleteWarning.png" alt="delete warning" class="popup-image">
+                    </div>
+                    <h2 id="deleteHeading">Do you wish to delete</h2>
+                    <h2 id="deleteHeadItemName"></h2>
+                    <div id="buttonContainer" style="display: flex; justify-content: space-around; padding: 2%;">
+                        <button id="yesOption">Delete Item</button>
+                        <button id="noOption">Keep Item</button>
                     </div>
                 </form>
             </div>
@@ -27,11 +36,15 @@
         <dialog id="addPopup" class="popup">
             <div>
                 <form method="dialog">
+                    <div style="display: flex; justify-content: center;">
+                        <img src="img/addSymbol.png" alt="add image" class="popup-image">
+                    </div>
                     <h2>New Item Information</h2>
                     <div id="addPopupImg">
                         <label id="imgLbl">Image URL</label>
                         <br/>
                         <input type="text" id="imgFld"></input>
+                        <img alt="image preview" class="popup-image" id="imgPreview">
                     </div>
                     <br/>
                     <div id="addPopupName">
@@ -43,7 +56,7 @@
                     <div id="addPopupDescr">
                         <label id="descrLbl">Description</label>
                         <br/>
-                        <input type="text" id="descrFld"></input>
+                        <textarea type="text" id="descrFld" style="min-height: 80px; width: 100%;"></textarea>
                     </div>
                     <br/>
                     <div id="addPopupPrice">
