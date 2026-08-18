@@ -1,4 +1,4 @@
-import { ownerWishlist } from "./db_utils.js";
+import { ownerWishlist, getImage } from "./db_utils.js";
 
 const d = document;
 d.documentElement.setAttribute("data-theme", localStorage.getItem("theme"));
@@ -39,7 +39,12 @@ if (items.length > 0) {
     pTwo.id = "image";
     // If the image URL is provided, put it in.
     // If not, put a message saying one was not provided
-    pTwo.src = item.image_url;
+    const isUrl =
+      item.image_url.startsWith("http://") ||
+      item.image_url.startsWith("https://");
+    if (isUrl) pTwo.src = item.image_url;
+    else pTwo.src = getImage(item.image_url);
+
     pTwo.alt = "Error with Image";
     if (pTwo.src.toUpperCase() == "NULL") pTwo.alt = "No Image Provided";
     listItem.appendChild(pTwo);

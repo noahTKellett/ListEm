@@ -41,26 +41,30 @@
                     </div>
                     <h2>New Item Information</h2>
                     <div id="addPopupImg">
-                        <label id="imgLbl">Image URL</label>
+                        <label id="imgLbl" style="font-weight: bold;">Image</label>
                         <br/>
-                        <input type="text" id="imgFld"></input>
-                        <img alt="image preview" class="popup-image" id="imgPreview">
+                        <div style="display: flex; justify-content: center;">
+                            <input type="file" id="imgUpload" accept="image/*" hidden>
+                            <img src="img/add.png" alt="image preview"
+                            class="popup-image" id="imgPreview" style="margin-top: 1%; margin-bottom: 1%">
+                        </div>
+                        <input type="text" placeholder="Image URL" id="imgFld"></input>
                     </div>
                     <br/>
                     <div id="addPopupName">
-                        <label id="nameLbl">Item Name</label>
+                        <label id="nameLbl" style="font-weight: bold;">Item Name</label>
                         <br/>
-                        <input type="text" id="nameFld"></input>
+                        <input type="text" placeholder="Enter item name" id="nameFld"></input>
                     </div>
                     <br/>
                     <div id="addPopupDescr">
-                        <label id="descrLbl">Description</label>
+                        <label id="descrLbl" style="font-weight: bold;">Description</label>
                         <br/>
                         <textarea type="text" id="descrFld" style="min-height: 80px; width: 100%;"></textarea>
                     </div>
                     <br/>
                     <div id="addPopupPrice">
-                        <label id="priceLbl">Price (CAD)</label>
+                        <label id="priceLbl" style="font-weight: bold;">Price (CAD)</label>
                         <br/>
                         <input type="text" inputmode="decimal" pattern="[0-9]*([\.,][0-9]{2})?"
                             oninput="this.value = this.value.replace(/[^0-9.,]/g, '').replace(/(\..*?)\..*/g, '$1');"

@@ -2,6 +2,8 @@ import {
   ownerWishlist,
   addWishlistItem,
   deleteWishlistItem,
+  addImage,
+  getImage,
 } from "./db_utils.js";
 
 const d = document;
@@ -19,9 +21,13 @@ const nameFld = d.getElementById("nameFld");
 const descrFld = d.getElementById("descrFld");
 const priceFld = d.getElementById("priceFld");
 const addBtn = d.getElementById("addBtn");
+const imgLbl = d.getElementById("imgLbl");
+const imgPreview = d.getElementById("imgPreview");
 
 const addItemBtn = d.getElementById("addItemBtn");
 addItemBtn.addEventListener("click", () => {
+  imgLbl.innerText = "Image";
+  imgPreview.src = "img/add.png";
   imgFld.value = "";
   nameFld.value = "";
   descrFld.value = "";
@@ -32,11 +38,29 @@ addPopup.addEventListener("click", (event) => {
   if (event.target === addPopup) addPopup.close();
 });
 
+// Using the image selection from local storage
+// (via clicking the "add"/"+" image)
+const imgUpload = d.getElementById("imgUpload");
+imgUpload.addEventListener("change", () => {
+  const file = imgUpload.files[0];
+  if (!file) return;
+  imgPreview.src = URL.createObjectURL(file);
+  imgLbl.innerText = "Image (Format: Local Storage)";
+});
+imgPreview.addEventListener("click", () => {
+  imgUpload.click();
+});
+imgPreview.onload = () => {
+  URL.revokeObjectURL(imgPreview.src);
+};
+
 imgFld.addEventListener("blur", (event) => {
   if (imgFld.value === "") {
     console.log("Field is empty");
   } else if (imgFld.value !== "") {
-    d.getElementById("imgPreview").src = imgFld.value;
+    imgPreview.src = imgFld.value;
+    if (imgPreview.naturalWidth === 0) imgPreview.src = "img/add.png";
+    else imgLbl.innerText = "Image (Format: URL)";
   }
   console.log("Clicked off field");
 });
@@ -46,9 +70,16 @@ let items = JSON.parse(await ownerWishlist(username));
 
 addBtn.addEventListener("click", async () => {
   // https://png.pngtree.com/png-clipart/20250103/original/pngtree-straw-hat-cartoon-illustration-png-image_8954284.png
+  let imgSource = "";
+  if (imgUpload.files.length > 0) {
+    const file = imgUpload.files[0];
+    const filename = `${username}/${Date.now()}_${file.name}`;
+
+    imgSource = await addImage(filename, file);
+  } else imgSource = imgFld.value;
   const success = await addWishlistItem(
     username,
-    imgFld.value,
+    imgSource,
     nameFld.value,
     descrFld.value,
     priceFld.value,
@@ -57,12 +88,13 @@ addBtn.addEventListener("click", async () => {
   if (success) window.location.reload();
 });
 
-let id = 0;
+let globalId = 0,
+  imgSrc = "";
 deletePopup.addEventListener("click", (event) => {
   if (event.target === deletePopup) deletePopup.close();
 });
 deleteConfirm.addEventListener("click", async () => {
-  const success = await deleteWishlistItem(id);
+  const success = await deleteWishlistItem(globalId, imgSrc);
   if (success) window.location.reload();
 });
 
@@ -89,7 +121,12 @@ if (items.length > 0) {
     pTwo.id = "image";
     // If the image URL is provided, put it in.
     // If not, put a message saying one was not provided
-    pTwo.src = item.image_url;
+    const isUrl =
+      item.image_url.startsWith("http://") ||
+      item.image_url.startsWith("https://");
+    if (isUrl) pTwo.src = item.image_url;
+    else pTwo.src = getImage(item.image_url);
+
     pTwo.alt = "Error with Image";
     if (pTwo.src.toUpperCase() == "NULL") pTwo.alt = "No Image Provided";
     listItem.appendChild(pTwo);
@@ -121,7 +158,8 @@ if (items.length > 0) {
     pDelBtn.style.backgroundColor = "var(--btn-delete)";
     pDelBtn.innerText = "X";
     pDelBtn.addEventListener("click", () => {
-      id = item.id;
+      globalId = item.id;
+      imgSrc = item.image_url;
       d.getElementById("deleteHeadItemName").innerText = `"${item.item_name}"?`;
       deletePopup.showModal();
     });

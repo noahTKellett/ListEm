@@ -290,3 +290,7 @@ dialog{
     width: 18%;
     padding: 2%;
 }
+#imgPreview.popup-image:hover {
+    border-radius: 9px;
+    background-color: var(--btn-hover-primary);
+}

@@ -7,7 +7,6 @@ if (localStorage.getItem("authenticated") !== "true")
 
 let username = localStorage.getItem("username");
 let names = JSON.parse(localStorage.getItem("names"));
-let data = JSON.parse(localStorage.getItem("data"));
 
 const userList = d.getElementById("wishlistSelect");
 names.forEach((name, index) => {
