@@ -69,7 +69,6 @@ let username = localStorage.getItem("username");
 let items = JSON.parse(await ownerWishlist(username));
 
 addBtn.addEventListener("click", async () => {
-  // https://png.pngtree.com/png-clipart/20250103/original/pngtree-straw-hat-cartoon-illustration-png-image_8954284.png
   let imgSource = "";
   if (imgUpload.files.length > 0) {
     const file = imgUpload.files[0];

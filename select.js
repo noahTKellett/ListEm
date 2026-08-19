@@ -12,7 +12,10 @@ uniqueNames.forEach((user, index) => {
   userList.appendChild(btn);
 });
 
+if (localStorage.getItem("theme") === null)
+  localStorage.setItem("theme", "dark");
 d.documentElement.setAttribute("data-theme", localStorage.getItem("theme"));
+
 if (localStorage.getItem("authenticated") !== "true") {
   window.location.href = "unauthorized.html";
 }
